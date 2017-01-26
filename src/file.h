@@ -6,49 +6,45 @@
 #include <QVector>
 #include <QFile>
 #include <QFileInfo>
-#include <QDir>
 #include <QtMath>
 
 #include <QDebug>
 
-
 class File : public QObject
 {
-    struct Hashes {
-        QString md4;
-        QString md5;
-    };
-
 public:
-    File(const QString &filename);
-    bool readFile();
+    explicit File(const QString &filename);
+    ~File();
 
-    const QString getMD4();
-    QString getSize();
+    qint64 read(char *data, qint64 maxSize);
+    void close();
+
+    quint64 getSize();
+    QString getSizeFormat();
     QString getAttributes();
     QString getTimeCreated();
     QString getTimeModified();
     QString getFilename() const;
-    QString getError() const;
-
-    void setMD4(const QString &hash);
+    QString getPath() const;
+    QString getErrorMsg() const;
+    QFileDevice::FileError getError();
 
 private:
-
-    QString sizeFormat(quint64 size);
+    void getInfo();
+    bool open();
 
     QFile *file;
     QFileInfo *fileInfo;
+
+    QString filename;
     QString path;
     quint64 size;
     QString attributes;
     QDateTime created;
     QDateTime modified;
+
     QFileDevice::FileError err;
     QString errMsg;
-
-    Hashes hashes;
-
 };
 
 #endif // FILE_H

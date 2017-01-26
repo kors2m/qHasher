@@ -28,13 +28,17 @@ SOURCES +=\
     src/file.cpp \
     src/hasher.cpp \
     src/main.cpp \
-    src/mainwindow.cpp
+    src/mainwindow.cpp \
+    src/model.cpp
 
 
 HEADERS  += \
     src/file.h \
     src/hasher.h \
-    src/mainwindow.h
+    src/mainwindow.h \
+    src/model.h \
+    src/ealghash.h \
+    src/version.h
 
 FORMS    += \
     src/mainwindow.ui
@@ -43,3 +47,10 @@ SUBDIRS += \
     qHasherTest.pro
 
 DISTFILES +=
+
+QMAKE_LFLAGS += -W
+
+QMAKE_CXXFLAGS += -std=c++14
+
+RESOURCES += \
+    src/resources.qrc

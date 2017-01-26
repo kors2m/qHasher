@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/addFile.png</file>
+        <file>icons/rehash.png</file>
+        <file>icons/stop.png</file>
+        <file>icons/log.png</file>
+        <file>icons/qhasher.png</file>
+    </qresource>
+</RCC>
