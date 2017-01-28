@@ -15,6 +15,9 @@ MainWindow::MainWindow(QWidget *parent) :
     createMenus();
     createToolBar();
 
+    logView = nullptr;
+
+
     connect(ui->rehashBtn, &QPushButton::clicked, this, &MainWindow::rehash);
 
     // set copy event
@@ -27,12 +30,16 @@ MainWindow::MainWindow(QWidget *parent) :
     statusBar()->showMessage(tr("qHasher is ready"), 2000);
 
     model = new Model();
+//    model->setHeaderData(1, Qt::Horizontal, tr("sfsd"));
+
     connect(model, &Model::dataChanged, this, &MainWindow::update);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete model;
+    delete logView;
 }
 
 void MainWindow::createMenus()
@@ -59,6 +66,9 @@ void MainWindow::createActions()
 
     logViewAct = new QAction(tr("Log hashing files"));
     logViewAct->setIcon(QIcon(":/icons/log.png"));
+    logViewAct->setStatusTip(tr("View Logs"));
+    logViewAct->setCheckable(true);
+    connect(logViewAct, &QAction::toggled, this, &MainWindow::openLog);
 
     aboutAct = new QAction(tr("&About"), this);
     connect(aboutAct, &QAction::triggered, this, &MainWindow::about);
@@ -100,6 +110,26 @@ void MainWindow::openFile()
         ui->pathToFileLE->setText(filePath);
         startHash(filePath);
     }
+}
+
+void MainWindow::openLog()
+{
+    if (!logView){
+        logView = new LogView(model);
+        // reset button logView on close
+        connect(logView, &LogView::closeLogViewer, [=]() {
+            logViewAct->setChecked(false);
+        });
+    }
+
+    if (logViewAct->isChecked()){
+        logView->show();
+        logView->raise();
+        logView->activateWindow();
+    } else {
+        logView->close();
+    }
+
 }
 
 void MainWindow::rehash()
@@ -269,4 +299,10 @@ void MainWindow::copyHash(QLineEdit *lineEdit, QString statusBarMsg)
     // o text selected in focusInEvent unselects by mousePressEvent.
     QTimer::singleShot(0, lineEdit, SLOT(selectAll()));
     ui->statusBar->showMessage(statusBarMsg, 2000);
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    Q_UNUSED(event);
+    logView->close();
 }

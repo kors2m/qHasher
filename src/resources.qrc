@@ -5,5 +5,7 @@
         <file>icons/stop.png</file>
         <file>icons/log.png</file>
         <file>icons/qhasher.png</file>
+        <file>icons/copy.png</file>
+        <file>icons/delete.png</file>
     </qresource>
 </RCC>

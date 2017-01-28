@@ -42,16 +42,33 @@ QVariant Model::headerData(int section, Qt::Orientation orientation, int role) c
         return QVariant();
 
     if (orientation == Qt::Vertical)
-        return section;
+        return section + 1;
 
     switch (section) {
     case FILENAME:
-        return tr("FileName");
+        return tr("File");
     case PATH:
         return tr("Path");
+    case CRC32:
+        return tr("CRC32");
+    case MD4:
+        return tr("MD4");
+    case MD5:
+        return tr("MD5");
     }
 
     return QVariant();
+}
+
+bool Model::removeRows(int position, int rows, const QModelIndex &parent)
+{
+    beginRemoveRows(QModelIndex(), position, position+rows-1);
+
+    for (int row = 0; row < rows; ++row)
+        h_files.removeAt(position);
+
+    endRemoveRows();
+    return true;
 }
 
 int Model::appendFile(const QString &filename, const QString &filepath)
@@ -83,4 +100,9 @@ void Model::addHash(int rowFileRecord, EAlgHash::Algs alg, const QString &hash)
         setData(index(rowFileRecord, Model::MD5), hash, Qt::EditRole);
         break;
     }
+}
+
+void Model::removeAllRows()
+{
+    removeRows(0, rowCount());
 }

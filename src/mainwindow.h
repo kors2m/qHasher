@@ -19,6 +19,7 @@
 #include "hasher.h"
 #include "model.h"
 #include "version.h"
+#include "logview.h"
 
 namespace Ui {
 class MainWindow;
@@ -39,14 +40,17 @@ public slots:
     void done();
     void update(const QModelIndex &index);
     void rehash();
+    void openLog();
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
+    void closeEvent(QCloseEvent *event) override;
 
 private slots:
     void openFile();
     void about();
     void interruptedHashing();
+
 
 private:
     void createActions();
@@ -59,6 +63,8 @@ private:
     Ui::MainWindow *ui;
 
     Model *model;
+    LogView *logView;
+
 
     QMenu *fileMenu;
     QMenu *helpMenu;

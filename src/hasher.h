@@ -18,6 +18,8 @@ public:
     explicit Hasher(Model *model);
     void addFile(File *file, QList<EAlgHash::Algs> markAlgs);
 
+    static const int kSizeBuffer;
+
 public slots:
     void calcHashes();
 

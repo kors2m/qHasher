@@ -1,5 +1,7 @@
 #include "hasher.h"
 
+const int Hasher::kSizeBuffer = 2048;
+
 Hasher::Hasher(Model *model)
 {
     this->model = model;
@@ -23,7 +25,6 @@ void Hasher::calcHashes()
 
         if (QThread::currentThread()->isInterruptionRequested()) {
             emit interrupted();
-            qDebug() << "interrupt";
             return;
         }
 
@@ -33,7 +34,6 @@ void Hasher::calcHashes()
     emit finished();
 }
 
-// private
 QString Hasher::calcHash(File *file, EAlgHash::Algs algorithm)
 {
     QString hash;
@@ -55,12 +55,11 @@ QString Hasher::calcHash(File *file, QCryptographicHash::Algorithm algorithm)
 {
     QCryptographicHash hash(algorithm);
     QString result;
-    int size = 2048;
-    char buf[size];
+    char buf[kSizeBuffer];
     qint64 readBytes;
     qint64 readResult = 0;
 
-    while ((readBytes = file->read(buf, size)) > 0) {
+    while ((readBytes = file->read(buf, kSizeBuffer)) > 0) {
         readResult += readBytes;
         hash.addData(buf, readBytes);
 
@@ -77,13 +76,12 @@ QString Hasher::calcHash(File *file, QCryptographicHash::Algorithm algorithm)
 
 QString Hasher::calcCRC32(File *file)
 {
-    int size = 2048;
-    char buf[size];
+    char buf[kSizeBuffer];
     qint64 readBytes;
     qint64 readResult = 0;
     boost::crc_32_type hash;
 
-    while ((readBytes = file->read(buf, size)) > 0) {
+    while ((readBytes = file->read(buf, kSizeBuffer)) > 0) {
         readResult += readBytes;
         hash.process_bytes(buf, readBytes);
         if (QThread::currentThread()->isInterruptionRequested()) {
