@@ -19,6 +19,9 @@ void LogView::init()
     view->setColumnWidth(Model::CRC32, 65);
     view->setColumnWidth(Model::MD4, 230);
     view->setColumnWidth(Model::MD5, 230);
+    view->setColumnWidth(Model::SHA1, 230);
+    view->setColumnWidth(Model::SHA256, 230);
+    view->setColumnWidth(Model::SHA512, 230);
 
     view->setShowGrid(false);
     view->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);

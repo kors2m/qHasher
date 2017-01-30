@@ -47,6 +47,15 @@ QString Hasher::calcHash(File *file, EAlgHash::Algs algorithm)
     case EAlgHash::MD5:
         hash = calcHash(file, QCryptographicHash::Md5);
         break;
+    case EAlgHash::SHA1:
+        hash = calcHash(file, QCryptographicHash::Sha1);
+        break;
+    case EAlgHash::SHA256:
+        hash = calcHash(file, QCryptographicHash::Sha256);
+        break;
+    case EAlgHash::SHA512:
+        hash = calcHash(file, QCryptographicHash::Sha512);
+        break;
     }
     return hash;
 }

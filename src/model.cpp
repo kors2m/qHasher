@@ -55,6 +55,12 @@ QVariant Model::headerData(int section, Qt::Orientation orientation, int role) c
         return tr("MD4");
     case MD5:
         return tr("MD5");
+    case SHA1:
+        return tr("SHA-1");
+    case SHA256:
+        return tr("SHA-256");
+    case SHA512:
+        return tr("SHA-512");
     }
 
     return QVariant();
@@ -98,6 +104,15 @@ void Model::addHash(int rowFileRecord, EAlgHash::Algs alg, const QString &hash)
         break;
     case EAlgHash::MD5:
         setData(index(rowFileRecord, Model::MD5), hash, Qt::EditRole);
+        break;
+    case EAlgHash::SHA1:
+        setData(index(rowFileRecord, Model::SHA1), hash, Qt::EditRole);
+        break;
+    case EAlgHash::SHA256:
+        setData(index(rowFileRecord, Model::SHA256), hash, Qt::EditRole);
+        break;
+    case EAlgHash::SHA512:
+        setData(index(rowFileRecord, Model::SHA512), hash, Qt::EditRole);
         break;
     }
 }

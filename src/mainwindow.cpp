@@ -24,6 +24,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->crc32LE->installEventFilter(this);
     ui->md4LE->installEventFilter(this);
     ui->md5LE->installEventFilter(this);
+    ui->sha1LE->installEventFilter(this);
+    ui->sha256LE->installEventFilter(this);
+    ui->sha512LE->installEventFilter(this);
 
     ui->progressBar->reset();
 
@@ -165,6 +168,18 @@ void MainWindow::update(const QModelIndex &index)
     case Model::MD5:
         ui->md5LE->setText(model->data(index).toString());
         break;
+
+    case Model::SHA1:
+        ui->sha1LE->setText(model->data(index).toString());
+        break;
+
+    case Model::SHA256:
+        ui->sha256LE->setText(model->data(index).toString());
+        break;
+
+    case Model::SHA512:
+        ui->sha512LE->setText(model->data(index).toString());
+        break;
     }
 }
 
@@ -193,6 +208,18 @@ void MainWindow::startHash(QString &path)
     }
     if (ui->md5CB->isChecked()) {
         selectedHashes.append(EAlgHash::MD5);
+        ++cnt;
+    }
+    if (ui->sha1CB->isChecked()) {
+        selectedHashes.append(EAlgHash::SHA1);
+        ++cnt;
+    }
+    if (ui->sha256CB->isChecked()) {
+        selectedHashes.append(EAlgHash::SHA256);
+        ++cnt;
+    }
+    if (ui->sha512CB->isChecked()) {
+        selectedHashes.append(EAlgHash::SHA512);
         ++cnt;
     }
 
@@ -262,6 +289,9 @@ void MainWindow::clear()
     ui->crc32LE->clear();
     ui->md4LE->clear();
     ui->md5LE->clear();
+    ui->sha1LE->clear();
+    ui->sha256LE->clear();
+    ui->sha512LE->clear();
     ui->progressBar->reset();
 }
 
@@ -278,6 +308,18 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
         }
         if (obj == ui->md5LE) {
             copyHash(ui->md5LE, tr("MD5 copied to the clipboard"));
+            return true;
+        }
+        if (obj == ui->sha1LE) {
+            copyHash(ui->sha1LE, tr("SHA-1 copied to the clipboard"));
+            return true;
+        }
+        if (obj == ui->sha256LE) {
+            copyHash(ui->sha256LE, tr("SHA-256 copied to the clipboard"));
+            return true;
+        }
+        if (obj == ui->sha512LE) {
+            copyHash(ui->sha512LE, tr("SHA-512 copied to the clipboard"));
             return true;
         }
     }
@@ -304,5 +346,5 @@ void MainWindow::copyHash(QLineEdit *lineEdit, QString statusBarMsg)
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     Q_UNUSED(event);
-    logView->close();
+    if (logView) logView->close();
 }

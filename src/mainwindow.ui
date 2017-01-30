@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>385</width>
-    <height>400</height>
+    <height>460</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,13 +19,13 @@
   <property name="minimumSize">
    <size>
     <width>385</width>
-    <height>400</height>
+    <height>460</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>385</width>
-    <height>400</height>
+    <height>460</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -223,20 +223,47 @@
     </item>
     <item row="2" column="0">
      <layout class="QGridLayout" name="gridLayout_4">
-      <item row="2" column="0">
-       <widget class="QCheckBox" name="md5CB">
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="crc32CB">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="text">
-         <string>MD5</string>
+         <string>CRC32</string>
         </property>
         <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="crc32LE">
+        <property name="readOnly">
          <bool>true</bool>
         </property>
        </widget>
       </item>
-      <item row="0" column="0">
-       <widget class="QCheckBox" name="crc32CB">
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="md4CB">
         <property name="text">
-         <string>CRC32</string>
+         <string>MD4</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="md4LE">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QCheckBox" name="md5CB">
+        <property name="text">
+         <string>MD5</string>
         </property>
         <property name="checked">
          <bool>true</bool>
@@ -250,46 +277,55 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="md4LE">
-        <property name="readOnly">
-         <bool>true</bool>
+      <item row="3" column="0">
+       <widget class="QCheckBox" name="sha1CB">
+        <property name="text">
+         <string>SHA-1</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QCheckBox" name="md4CB">
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="sha1LE"/>
+      </item>
+      <item row="4" column="0">
+       <widget class="QCheckBox" name="sha256CB">
         <property name="text">
-         <string>MD4</string>
+         <string>SHA-256</string>
         </property>
         <property name="checked">
          <bool>true</bool>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="crc32LE">
-        <property name="readOnly">
-         <bool>true</bool>
+      <item row="4" column="1">
+       <widget class="QLineEdit" name="sha256LE"/>
+      </item>
+      <item row="5" column="0">
+       <widget class="QCheckBox" name="sha512CB">
+        <property name="text">
+         <string>SHA-512</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>53</height>
-         </size>
-        </property>
-       </spacer>
+      <item row="5" column="1">
+       <widget class="QLineEdit" name="sha512LE"/>
       </item>
      </layout>
     </item>
     <item row="3" column="0">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>17</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="4" column="0">
      <widget class="QProgressBar" name="progressBar">
       <property name="value">
        <number>24</number>
@@ -297,6 +333,14 @@
      </widget>
     </item>
    </layout>
+   <zorder>fileInfoGB</zorder>
+   <zorder>progressBar</zorder>
+   <zorder>verticalSpacer</zorder>
+   <zorder>sha256CB</zorder>
+   <zorder>sha512CB</zorder>
+   <zorder>sha1LE</zorder>
+   <zorder>sha256LE</zorder>
+   <zorder>sha512LE</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

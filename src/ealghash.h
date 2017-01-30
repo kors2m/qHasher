@@ -15,7 +15,10 @@ public:
     enum Alg {
         CRC32 = 0x01,
         MD4 = 0x02,
-        MD5 = 0x04
+        MD5 = 0x04,
+        SHA1 = 0x08,
+        SHA256 = 0x10,
+        SHA512 = 0x20
     };
     Q_DECLARE_FLAGS(Algs, Alg)
 };
